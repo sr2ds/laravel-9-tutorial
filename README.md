@@ -6,3 +6,4 @@ https://www.youtube.com/playlist?list=PLidvkUdZtockQmjYdn7OYJPvdP3_79m4o
 
 This is a simple repository with implementations about my videos, with tests and samples.
 
+php artisan make:model -c -f -m --api -R --test Product

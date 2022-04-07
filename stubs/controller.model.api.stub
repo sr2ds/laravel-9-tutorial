@@ -1,0 +1,45 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }}
+use Illuminate\Http\Response;
+
+/**
+ * Class {{ class }}Controller
+ * @package  {{ namespace }}
+ */
+class {{ class }} extends Controller
+{
+    
+    public function index()
+    {
+        ${{ modelVariable }}s = {{ model }}::all();
+        return response()->json(${{ modelVariable }}s);
+    }
+    
+    public function store({{ storeRequest }} $request)
+    {
+        $data = {{ model }}::create($request->validated());
+        return response()->json($data, RESPONSE::HTTP_CREATED);
+    }
+  
+    public function show({{ model }} ${{ modelVariable }})
+    {
+        return response()->json(${{ modelVariable }});
+    }
+   
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->update($request->validated());
+        return response()->json(${{ modelVariable }}->refresh());
+    }
+
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+        ${{ modelVariable }}->delete();
+        return response()->notContent();
+    }
+}
