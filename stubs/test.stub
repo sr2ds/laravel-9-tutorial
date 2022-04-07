@@ -2,21 +2,54 @@
 
 namespace {{ namespace }};
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class {{ class }} extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $response = $this->get('/');
+    private $path = '/api/{{ class }}'; //@todo: set correct path
+    private $model = \App\Models\{{ class }}::class; //@todo: set correct model class
+    private $table = '{{ class }}'; //@todo: set correct table
 
-        $response->assertStatus(200);
+    public function test_create_{{ class }}()
+    {
+        $data = $this->model::factory()->make();
+
+        $this->postJson($this->path, $data->toArray())
+            ->assertCreated();
+
+        $this->assertDatabaseHas($this->table, $data->toArray());
+    }
+
+    public function test_show_{{ class }}()
+    {
+        $data = $this->model::factory()->create();
+
+        $this->get($this->path . '/' .  $data->id)
+            ->assertOk();
+    }
+
+    public function test_update_{{ class }}()
+    {
+        $data = $this->model::factory()->create();
+        $newData = $this->model::factory()->make();
+
+        $this->putJson($this->path . '/' . $data->id, $newData->toArray())
+            ->assertOk();
+    }
+
+    public function test_list_{{ class }}()
+    {
+        $this->model::factory()->count(10)->create();
+        $this->get($this->path)
+            ->assertOk();
+    }
+
+    public function test_delete_{{ class }}()
+    {
+        $data = $this->model::factory()->create();
+        $this->delete($this->path . '/' . $data->id)
+            ->assertNoContent();
+
+        $this->assertDatabaseCount($this->table, 0);
     }
 }
