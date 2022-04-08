@@ -1,5 +1,4 @@
 <?php
-
 namespace {{ namespace }};
 
 use {{ namespacedModel }};
@@ -77,7 +76,7 @@ class {{ class }} extends Controller
         return response()->json(['data' => $data], RESPONSE::HTTP_CREATED);
     }
   
-  /**
+    /**
      * @OA\Get(
      *   path="/{{ modelVariable }}s/{{{ modelVariable }}_id}",
      *   summary="Show a {{ model }} from his Id",
@@ -108,7 +107,7 @@ class {{ class }} extends Controller
         return response()->json(['data' => ${{ modelVariable }}]);
     }
    
-   /**
+    /**
      * @OA\Patch(
      *   operationId="update{{ model }}",
      *   summary="Update an existing {{ model }}",
