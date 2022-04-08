@@ -22,6 +22,236 @@
                     }
                 }
             }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get list of Product",
+                "description": "Returns list of Product",
+                "operationId": "indexProduct",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Products"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Insert a new Product",
+                "description": "Insert a new Product",
+                "operationId": "storeProduct",
+                "requestBody": {
+                    "description": "Product to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Product created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/products/{product_id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Show a Product from his Id",
+                "description": "Show a Product from his Id",
+                "operationId": "showProduct",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Product--id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Product"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete a Product",
+                "description": "Delete a Product",
+                "operationId": "destroyProduct",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Product--id"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    },
+                    "404": {
+                        "description": "Product not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update an existing Product",
+                "description": "Update an existing Product",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/Product--id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Product to update",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Product": {
+                "title": "Product",
+                "description": "Product model",
+                "required": [],
+                "properties": {
+                    "id": {
+                        "title": "id",
+                        "description": "id of Product",
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "title": "name",
+                        "description": "name of Product",
+                        "type": "string",
+                        "example": "Macbook Pro"
+                    },
+                    "sku": {
+                        "title": "sku",
+                        "description": "sku of Product",
+                        "type": "string",
+                        "example": "MCBPRO2022"
+                    },
+                    "price": {
+                        "title": "price",
+                        "description": "price of Product",
+                        "type": "integer",
+                        "example": "99"
+                    },
+                    "created_at": {
+                        "title": "created_at",
+                        "type": "dateTime",
+                        "readOnly": "true",
+                        "example": "2022-07-04T02:41:42.336Z"
+                    },
+                    "updated_at": {
+                        "title": "updated_at",
+                        "type": "dateTime",
+                        "readOnly": "true",
+                        "example": "2022-07-04T02:41:42.336Z"
+                    }
+                },
+                "type": "object"
+            },
+            "Products": {
+                "title": "Products",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Product"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "Product--id": {
+                "name": "Product_id",
+                "in": "path",
+                "description": "Id of Product",
+                "required": true,
+                "schema": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            }
         }
     },
     "security": [
