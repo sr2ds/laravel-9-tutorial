@@ -14,7 +14,7 @@ class {{ class }} extends TestCase
     {
         $data = $this->model::factory()->make();
 
-        $this->postJson($this->path, $data->toArray())
+        $this->postJson($this->path, ['data' => $data->toArray()])
             ->assertCreated();
 
         $this->assertDatabaseHas($this->table, $data->toArray());
@@ -33,7 +33,7 @@ class {{ class }} extends TestCase
         $data = $this->model::factory()->create();
         $newData = $this->model::factory()->make();
 
-        $this->putJson($this->path . '/' . $data->id, $newData->toArray())
+        $this->putJson($this->path . '/' . $data->id, ['data' => $newData->toArray()])
             ->assertOk();
     }
 

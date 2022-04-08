@@ -18,14 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @OA\Schema(
  *   schema="{{ class }}s",
  *   title="{{ class }}s",
- *   @OA\Property(
- *     title="data",
- *     property="data",
- *     type="array",
- *     @OA\Items(
- *       type="object",
- *       ref="#/components/schemas/{{ class }}"
- *     ),
+ *   @OA\Property(title="data",property="data",type="array",
+ *     @OA\Items(type="object",ref="#/components/schemas/{{ class }}"),
  *   )
  * )
  * 

@@ -21,14 +21,7 @@ class {{ class }} extends Controller
      *  summary="Get list of {{ model }}",
      *  description="Returns list of {{ model }}",
      *  @OA\Response(response=200, description="Successful operation",
-     *    @OA\JsonContent(
-     *    @OA\Property(
-     *    title="data",
-     *    property="data",
-     *    type="array",
-     *      @OA\Items(type="object",ref="#/components/schemas/{{ model }}"),
-     *    ),
-     *   ),
+     *    @OA\JsonContent(ref="#/components/schemas/{{ model }}s"),
      *  ),
      * )
      *
@@ -38,7 +31,7 @@ class {{ class }} extends Controller
     public function index()
     {
         ${{ modelVariable }}s = {{ model }}::all();
-        return response()->json(${{ modelVariable }}s);
+        return response()->json(['data' => ${{ modelVariable }}s]);
     }
     
     /**
@@ -81,7 +74,7 @@ class {{ class }} extends Controller
     public function store({{ storeRequest }} $request)
     {
         $data = {{ model }}::create($request->validated());
-        return response()->json($data, RESPONSE::HTTP_CREATED);
+        return response()->json(['data' => $data], RESPONSE::HTTP_CREATED);
     }
   
   /**
@@ -112,7 +105,7 @@ class {{ class }} extends Controller
      */
     public function show({{ model }} ${{ modelVariable }})
     {
-        return response()->json(${{ modelVariable }});
+        return response()->json(['data' => ${{ modelVariable }}]);
     }
    
    /**
@@ -147,7 +140,7 @@ class {{ class }} extends Controller
     public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
     {
         ${{ modelVariable }}->update($request->validated());
-        return response()->json(${{ modelVariable }}->refresh());
+        return response()->json(['data' => ${{ modelVariable }}->refresh()]);
     }
 
     /**
