@@ -72,7 +72,7 @@ class {{ class }} extends Controller
      */
     public function store({{ storeRequest }} $request)
     {
-        $data = {{ model }}::create($request->validated());
+        $data = {{ model }}::create($request->validated('data'));
         return response()->json(['data' => $data], RESPONSE::HTTP_CREATED);
     }
   
@@ -138,7 +138,7 @@ class {{ class }} extends Controller
      */
     public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
     {
-        ${{ modelVariable }}->update($request->validated());
+        ${{ modelVariable }}->update($request->validated('data'));
         return response()->json(['data' => ${{ modelVariable }}->refresh()]);
     }
 

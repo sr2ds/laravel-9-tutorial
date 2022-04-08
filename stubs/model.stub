@@ -39,6 +39,10 @@ class {{ class }} extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'created_at',
+        'updated_at',
+    ];
+    
     protected $casts = [];
 }
