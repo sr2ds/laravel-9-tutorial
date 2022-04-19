@@ -6,6 +6,12 @@ https://www.youtube.com/playlist?list=PLidvkUdZtockQmjYdn7OYJPvdP3_79m4o
 
 This is a simple repository with implementations about my videos, with tests and samples.
 
+# Setup - Docker is required
+
+```
+vendor/bin/sail up -d
+```
+
 ## Stubs Crud Simplify
 
 To create a fast crud with tests and open-api documentation with stubs customized:

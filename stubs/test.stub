@@ -24,8 +24,9 @@ class {{ class }} extends TestCase
     {
         $data = $this->model::factory()->create();
 
-        $this->get($this->path . '/' .  $data->id)
-            ->assertOk();
+        $response = $this->getJson($this->path . '/' .  $data->getRouteKey());
+        $response->assertOk();
+        $response->assertJsonFragment($data->toArray());
     }
 
     public function test_update_{{ class }}()
@@ -33,21 +34,24 @@ class {{ class }} extends TestCase
         $data = $this->model::factory()->create();
         $newData = $this->model::factory()->make();
 
-        $this->putJson($this->path . '/' . $data->id, ['data' => $newData->toArray()])
-            ->assertOk();
+        $response = $this->putJson($this->path . '/' . $data->getRouteKey(), ['data' => $newData->toArray()]);
+        $response->assertOk();
+        $response->assertJsonFragment($newData->toArray());
     }
 
     public function test_list_{{ class }}()
     {
         $this->model::factory()->count(10)->create();
-        $this->get($this->path)
-            ->assertOk();
+
+        $response = $this->get($this->path);
+        $response->assertOk();
+        $response->assertJsonCount(10);
     }
 
     public function test_delete_{{ class }}()
     {
         $data = $this->model::factory()->create();
-        $this->delete($this->path . '/' . $data->id)
+        $this->delete($this->path . '/' . $data->getRouteKey())
             ->assertNoContent();
 
         $this->assertDatabaseCount($this->table, 0);
