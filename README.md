@@ -9,6 +9,7 @@ This is a simple repository with implementations about my videos, with tests and
 # Setup - Docker is required
 
 ```
+composer install
 vendor/bin/sail up -d
 ```
 
